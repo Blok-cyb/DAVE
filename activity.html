@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>File Activity Monitor</title>
+
+    <link rel="stylesheet" href="activity.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ==========================
+            SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <h2>🛡 Malware Detection</h2>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </li>
+
+            <li onclick="location.href='scan.html'">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Start Scan
+
+            </li>
+
+            <li class="active">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                File Activity
+
+            </li>
+
+            <li onclick="location.href='detection.html'">
+
+                <i class="fa-solid fa-shield-virus"></i>
+
+                Detection Results
+
+            </li>
+
+            <li onclick="location.href='report.html'">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                Reports
+
+            </li>
+
+            <li onclick="location.href='settings.html'">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </li>
+
+            <li id="logoutBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- ==========================
+          MAIN CONTENT
+    =========================== -->
+
+    <main class="main-content">
+
+        <!-- Top Bar -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>
+
+                    File Activity Monitor
+
+                </h1>
+
+                <p>
+
+                    Welcome,
+
+                    <strong id="username">
+
+                        Administrator
+
+                    </strong>
+
+                </p>
+
+            </div>
+
+            <div class="time-section">
+
+                <h3 id="clock">
+
+                    00:00:00
+
+                </h3>
+
+                <p id="todayDate">
+
+                    Loading...
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+           MONITOR STATUS
+        =========================== -->
+
+        <div class="monitor-box">
+
+            <div class="monitor-icon">
+
+                <i class="fa-solid fa-eye"></i>
+
+            </div>
+
+            <div>
+
+                <h2>
+
+                    Monitoring Status
+
+                </h2>
+
+                <p id="monitorStatus">
+
+                    🟢 ACTIVE
+
+                </p>
+
+                <small>
+
+                    <span id="watchingFolder">Watching: No folder selected</span>
+
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+           STATISTICS CARDS
+        =========================== -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-file-circle-plus"></i>
+
+                <h2 id="createdCount">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Files Created
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-pen"></i>
+
+                <h2 id="modifiedCount">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Files Modified
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-trash"></i>
+
+                <h2 id="deletedCount">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Files Deleted
+
+                </p>
+
+            </div>
+
+            <div class="card danger">
+
+                <i class="fa-solid fa-bug"></i>
+
+                <h2 id="threatCount">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Elevated Events
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+            SEARCH & FILTER
+        =========================== -->
+
+        <div class="search-filter">
+
+            <input
+
+                type="text"
+
+                id="searchInput"
+
+                placeholder="🔍 Search file name...">
+
+            <select id="activityFilter">
+
+                <option value="All">
+
+                    All Activities
+
+                </option>
+
+                <option>
+
+                    Created
+
+                </option>
+
+                <option>
+
+                    Modified
+
+                </option>
+
+                <option>
+
+                    Deleted
+
+                </option>
+
+                <option>
+
+                    Renamed
+
+                </option>
+
+
+
+            </select>
+
+        </div>
+
+
+
+        <!-- ==========================
+            LIVE ALERT
+        =========================== -->
+
+        <div id="alertBanner" class="safe-banner">
+
+            🟢 No Threat Detected
+
+        </div>
+                <!-- ==========================
+            FILE ACTIVITY TABLE
+        =========================== -->
+
+        <section class="activity-table">
+
+            <h2>
+
+                Recent File Activities
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>File Name</th>
+
+                        <th>Extension</th>
+
+                        <th>Activity</th>
+
+                        <th>Process</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="activityData">
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            Waiting for monitoring...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- ==========================
+            LIVE MONITOR LOG
+        =========================== -->
+
+        <section class="live-log">
+
+            <h2>
+
+                Live Monitoring Console
+
+            </h2>
+
+            <div id="logBox">
+
+                <p>
+
+                    [System] File monitor initialized...
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            THREAT SUMMARY
+        =========================== -->
+
+        <div class="summary-grid">
+
+            <div class="summary-card">
+
+                <h3>Safe Files</h3>
+
+                <h2 id="safeFiles">
+
+                    0
+
+                </h2>
+
+            </div>
+
+            <div class="summary-card warning">
+
+                <h3>Warnings</h3>
+
+                <h2 id="warningFiles">
+
+                    0
+
+                </h2>
+
+            </div>
+
+            <div class="summary-card danger">
+
+                <h3>Suspicious</h3>
+
+                <h2 id="malwareFiles">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+            FILE DETAILS
+        =========================== -->
+
+        <section class="file-details">
+
+            <h2>
+
+                Selected File Details
+
+            </h2>
+
+            <table>
+
+                <tr>
+
+                    <td>Filename</td>
+
+                    <td id="detailName">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Extension</td>
+
+                    <td id="detailExtension">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Assessment</td>
+
+                    <td id="detailPrediction">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Behaviour Score</td>
+
+                    <td id="detailConfidence">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Entropy</td>
+
+                    <td id="detailEntropy">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Process</td>
+
+                    <td id="detailProcess">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Full Path</td>
+
+                    <td id="detailPath">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Why Flagged</td>
+
+                    <td id="detailReasons">-</td>
+
+                </tr>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- ==========================
+            ML FEATURES
+        =========================== -->
+
+        <section class="ml-features">
+
+            <h2>
+
+                Behavioural Features
+
+            </h2>
+
+            <div class="feature-grid">
+
+                <div class="feature">Write Count <strong id="featureWriteCount">0</strong></div>
+                <div class="feature">Rename Count <strong id="featureRenameCount">0</strong></div>
+                <div class="feature">Delete Count <strong id="featureDeleteCount">0</strong></div>
+                <div class="feature">Create Count <strong id="featureCreateCount">0</strong></div>
+                <div class="feature">Extension Diversity <strong id="featureExtDiversity">0</strong></div>
+                <div class="feature">Sensitive Path Access <strong id="featureSensitive">0</strong></div>
+                <div class="feature">Read/Write Ratio <strong id="featureRatio">0</strong><small id="ratioNote">Create/Write proxy</small></div>
+                <div class="feature">Detection Score <strong id="featureScore">0</strong></div>
+
+                <div class="feature">Write Entropy <strong id="featureEntropy">0</strong></div>
+                <div class="feature">Window <strong id="featureWindow">10s</strong></div>
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            ACTION BUTTONS
+        =========================== -->
+
+        <div class="button-group">
+
+            <button id="startMonitor">
+
+                <i class="fa-solid fa-play"></i>
+
+                Start Monitoring
+
+            </button>
+
+            <button id="stopMonitor" class="stop">
+
+                <i class="fa-solid fa-stop"></i>
+
+                Stop Monitoring
+
+            </button>
+
+            <button id="clearLog">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Clear Log
+
+            </button>
+
+            <button id="exportCSV">
+
+                <i class="fa-solid fa-file-csv"></i>
+
+                Export CSV
+
+            </button>
+
+            <button id="exportPDF">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                Export PDF
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ==========================
+            FOOTER
+        =========================== -->
+
+        <footer class="footer">
+
+            <p>
+
+                Malware Detection Using File Activity
+
+            </p>
+
+            <p>
+
+                Developed by <strong>Adetoro Akindele David</strong>
+
+            </p>
+
+            <p>
+
+                Department of Cyber Security
+
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="auth.js"></script>
+
+<script src="activity.js"></script>
+
+<section class="panel" style="margin-top:20px;padding:18px;"><h2>ML Behaviour Analysis</h2><div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;"><div><strong>ML Status</strong><div id="mlStatus">LEARNING BASELINE</div></div><div><strong>Anomaly Score</strong><div id="mlAnomalyScore">-</div></div></div><p style="margin-top:12px;opacity:.8;">The ML layer uses Isolation Forest to learn normal activity patterns from low-risk windows. An anomaly is not automatically classified as malware.</p></section>
+</body>
+
+</html>

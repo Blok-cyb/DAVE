@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>File Malware Scanner</title>
+
+    <link rel="stylesheet" href="scan.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ===========================
+            SIDEBAR
+    ============================ -->
+
+    <aside class="sidebar">
+
+        <h2>🛡 Malware Detection</h2>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </li>
+
+            <li class="active">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Start Scan
+
+            </li>
+
+            <li onclick="location.href='activity.html'">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                File Activity
+
+            </li>
+
+            <li onclick="location.href='detection.html'">
+
+                <i class="fa-solid fa-shield-virus"></i>
+
+                Detection Results
+
+            </li>
+
+            <li onclick="location.href='report.html'">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                Reports
+
+            </li>
+
+            <li onclick="location.href='settings.html'">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </li>
+
+            <li id="logoutBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- ===========================
+            MAIN CONTENT
+    ============================ -->
+
+    <main class="main-content">
+
+        <!-- Top Bar -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>
+
+                    Real-Time Malware Scanner
+
+                </h1>
+
+                <p>
+
+                    Welcome,
+                    <strong id="username">
+                        Administrator
+                    </strong>
+
+                </p>
+
+            </div>
+
+            <div id="clock">
+
+                00:00:00
+
+            </div>
+
+        </div>
+
+
+        <!-- Upload Section -->
+
+        <div class="scan-box">
+
+            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+            <h2>
+
+                Upload File For Analysis
+
+            </h2>
+
+            <p>
+
+                Select or drag a suspicious file below.
+
+            </p>
+
+            <div class="drop-area" id="dropArea">
+
+                <p>
+
+                    📂 Drag & Drop File Here
+
+                </p>
+
+                <span>
+
+                    OR
+
+                </span>
+
+                <br><br>
+
+                <input type="file"
+                       id="fileInput">
+
+            </div>
+
+
+            <br>
+
+
+            <!-- Scan Type -->
+
+            <select id="scanType">
+
+                <option>
+
+                    Quick Scan
+
+                </option>
+
+                <option>
+
+                    Full Scan
+
+                </option>
+
+                <option>
+
+                    Deep Behaviour Scan
+
+                </option>
+
+                <option>
+
+                    Machine Learning Detection
+
+                </option>
+
+            </select>
+
+
+            <button id="scanBtn">
+
+                <i class="fa-solid fa-play"></i>
+
+                Start Scan
+
+            </button>
+
+        </div>
+
+
+        <!-- File Information -->
+
+        <div class="file-info">
+
+            <h2>
+
+                Selected File Information
+
+            </h2>
+
+            <table>
+
+                <tr>
+
+                    <td>
+
+                        File Name
+
+                    </td>
+
+                    <td id="fileName">
+
+                        No file selected
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        File Size
+
+                    </td>
+
+                    <td id="fileSize">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Extension
+
+                    </td>
+
+                    <td id="fileExtension">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Last Modified
+
+                    </td>
+
+                    <td id="lastModified">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- Feature Extraction -->
+
+        <div class="features">
+
+            <h2>
+
+                Behaviour Features Extracted
+
+            </h2>
+
+            <div class="feature-grid">
+
+                <div class="feature"><span>Write Count</span><strong id="writeCount">-</strong></div>
+                <div class="feature"><span>Delete Count</span><strong id="deleteCount">-</strong></div>
+                <div class="feature"><span>Create Count</span><strong id="createCount">-</strong></div>
+                <div class="feature"><span>Rename Count</span><strong id="renameCount">-</strong></div>
+                <div class="feature"><span>Write Entropy</span><strong id="writeEntropy">-</strong></div>
+                <div class="feature"><span>Extension Diversity</span><strong id="extDiversity">-</strong></div>
+                <div class="feature"><span>Sensitive Path Access</span><strong id="sensitivePath">-</strong></div>
+                <div class="feature"><span>Read/Write Ratio</span><strong id="readWriteRatio">-</strong></div>
+
+            </div>
+
+                <div class="feature">
+
+                    Rename Count
+
+                </div>
+
+                <div class="feature">
+
+                    File Entropy
+
+                </div>
+
+                <div class="feature">
+
+                    Sensitive Folder Access
+
+                </div>
+
+                <div class="feature">
+
+                    Hidden File Activity
+
+                </div>
+
+                <div class="feature">
+
+                    Execution Attempts
+
+                </div>
+
+            </div>
+
+        </div>
+                <!-- ===========================
+             SCAN PROGRESS
+        ============================ -->
+
+        <div class="progress-section">
+
+            <h2>
+                Scan Progress
+            </h2>
+
+            <div class="progress-bar">
+
+                <div id="progress"></div>
+
+            </div>
+
+            <p id="status">
+                Waiting for scan...
+            </p>
+
+        </div>
+
+
+        <!-- ===========================
+              LIVE ANALYSIS LOG
+        ============================ -->
+
+        <div class="analysis-log">
+
+            <h2>
+
+                Live Analysis Log
+
+            </h2>
+
+            <div id="logBox">
+
+                <p>[System] Waiting for scan...</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+              DETECTION SUMMARY
+        ============================ -->
+
+        <div class="result-box">
+
+            <h2>
+
+                Scan Summary
+
+            </h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <h3>Files Scanned</h3>
+
+                    <p id="files">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h3>Threats Found</h3>
+
+                    <p id="threats">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h3>Prediction</h3>
+
+                    <p id="prediction">
+
+                        Waiting...
+
+                    </p>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h3>Confidence</h3>
+
+                    <p id="confidence">
+
+                        0%
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+             THREAT LEVEL
+        ============================ -->
+
+        <div class="threat-box">
+
+            <h2>
+
+                Threat Level
+
+            </h2>
+
+            <div id="riskLevel" class="risk low">
+
+                LOW
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+              SCAN HISTORY
+        ============================ -->
+
+        <div class="history">
+
+            <h2>
+
+                Recent Scan History
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>File</th>
+
+                        <th>Status</th>
+
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="historyTable">
+
+                    <tr>
+
+                        <td colspan="3">
+
+                            No scans yet
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ===========================
+            DOWNLOAD REPORT
+        ============================ -->
+
+        <div class="report-section">
+
+            <button id="downloadReport">
+
+                <i class="fa-solid fa-download"></i>
+
+                Download Scan Report
+
+            </button>
+
+        </div>
+
+
+        <!-- ===========================
+             FOOTER
+        ============================ -->
+
+        <footer class="footer">
+
+            <p>
+
+                Malware Detection Using File Activity
+
+            </p>
+
+            <p>
+
+                Developed by
+                <strong>
+                    Adetoro Akindele David
+                </strong>
+
+            </p>
+
+            <p>
+
+                Department of Cyber Security
+
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="auth.js"></script>
+
+<script src="scan.js"></script>
+
+</body>
+
+</html>

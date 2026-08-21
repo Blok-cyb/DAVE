@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reports | Malware Detection System</title>
+
+
+<link rel="stylesheet" href="report.css">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- ==========================
+        SIDEBAR
+========================== -->
+
+
+<aside class="sidebar">
+
+
+<h2>
+🛡 Malware Detection
+</h2>
+
+
+
+<ul>
+
+
+<li onclick="location.href='dashboard.html'">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Dashboard
+
+</li>
+
+
+
+<li onclick="location.href='scan.html'">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+Start Scan
+
+</li>
+
+
+
+<li onclick="location.href='activity.html'">
+
+<i class="fa-solid fa-folder-open"></i>
+
+File Activity
+
+</li>
+
+
+
+<li onclick="location.href='detection.html'">
+
+<i class="fa-solid fa-shield-virus"></i>
+
+Detection Results
+
+</li>
+
+
+
+
+<li class="active">
+
+<i class="fa-solid fa-file-lines"></i>
+
+Reports
+
+</li>
+
+
+
+
+<li onclick="location.href='settings.html'">
+
+<i class="fa-solid fa-gear"></i>
+
+Settings
+
+</li>
+
+
+
+<li id="logoutBtn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</li>
+
+
+
+</ul>
+
+
+</aside>
+
+
+
+
+
+<!-- ==========================
+        MAIN CONTENT
+========================== -->
+
+
+<main class="main-content">
+
+
+
+<!-- HEADER -->
+
+
+<div class="top-bar">
+
+
+<div>
+
+<h1>
+
+Security Reports
+
+</h1>
+
+
+<p>
+
+Analyze malware detection history and system activities.
+
+</p>
+
+
+</div>
+
+
+
+<div class="time-section">
+
+
+<h3 id="clock">
+
+00:00:00
+
+</h3>
+
+
+<p id="todayDate">
+
+Loading...
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- REPORT STATUS -->
+
+
+<div class="report-status">
+
+
+<i class="fa-solid fa-file-shield"></i>
+
+
+<div>
+
+
+<h3>
+
+System Report Status
+
+</h3>
+
+
+<p id="reportStatus">
+
+All systems operating normally
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- ==========================
+        SUMMARY CARDS
+========================== -->
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<i class="fa-solid fa-magnifying-glass-chart"></i>
+
+
+<h2 id="totalScans">
+
+0
+
+</h2>
+
+
+<p>
+
+Total Scans
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<i class="fa-solid fa-folder-open"></i>
+
+
+<h2 id="filesChecked">
+
+0
+
+</h2>
+
+
+<p>
+
+Files Checked
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card danger">
+
+
+<i class="fa-solid fa-virus"></i>
+
+
+<h2 id="malwareDetected">
+
+0
+
+</h2>
+
+
+<p>
+
+Malware Detected
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card warning">
+
+
+<i class="fa-solid fa-percent"></i>
+
+
+<h2 id="threatRate">
+
+0%
+
+</h2>
+
+
+<p>
+
+Threat Rate
+
+</p>
+
+
+</div>
+
+
+
+</div>
+<!-- ==========================
+        SCAN HISTORY
+========================== -->
+
+
+<section class="report-section">
+
+
+<h2>
+
+Scan History
+
+</h2>
+
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Scan ID
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Files Scanned
+</th>
+
+
+<th>
+Threats Found
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="scanHistory">
+
+
+<tr>
+
+
+<td>
+
+SCAN-001
+
+</td>
+
+
+<td>
+
+Today
+
+</td>
+
+
+<td>
+
+1245
+
+</td>
+
+
+<td class="danger-text">
+
+3
+
+</td>
+
+
+<td class="safe-text">
+
+Completed
+
+</td>
+
+
+</tr>
+
+
+
+<tr>
+
+
+<td>
+
+SCAN-002
+
+</td>
+
+
+<td>
+
+Yesterday
+
+</td>
+
+
+<td>
+
+980
+
+</td>
+
+
+<td class="danger-text">
+
+8
+
+</td>
+
+
+<td class="safe-text">
+
+Completed
+
+</td>
+
+
+</tr>
+
+
+
+<tr>
+
+
+<td>
+
+SCAN-003
+
+</td>
+
+
+<td>
+
+02/08/2026
+
+</td>
+
+
+<td>
+
+750
+
+</td>
+
+
+<td class="safe-text">
+
+0
+
+</td>
+
+
+<td class="safe-text">
+
+Clean
+
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================
+        DETECTION STATISTICS
+========================== -->
+
+
+<section class="statistics-section">
+
+
+<h2>
+
+Detection Statistics
+
+</h2>
+
+
+
+<div class="statistics-grid">
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-file-circle-exclamation"></i>
+
+
+<h3>
+
+Executable Threats
+
+</h3>
+
+
+<p id="exeThreats">
+
+12
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<h3>
+
+Encrypted Files
+
+</h3>
+
+
+<p id="encryptedFiles">
+
+5
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-rotate"></i>
+
+
+<h3>
+
+Modified Files
+
+</h3>
+
+
+<p id="modifiedFiles">
+
+45
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<i class="fa-solid fa-trash"></i>
+
+
+<h3>
+
+Suspicious Deletes
+
+</h3>
+
+
+<p id="deletedFiles">
+
+8
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- ==========================
+        RISK DISTRIBUTION
+========================== -->
+
+
+<section class="risk-section">
+
+
+<h2>
+
+Threat Risk Distribution
+
+</h2>
+
+
+
+<div class="risk-container">
+
+
+
+<div class="risk-box safe-box">
+
+
+<h3>
+
+Safe
+
+</h3>
+
+
+<p id="safePercentage">
+
+85%
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="risk-box low-box">
+
+
+<h3>
+
+Low Risk
+
+</h3>
+
+
+<p>
+
+8%
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="risk-box medium-box">
+
+
+<h3>
+
+Medium Risk
+
+</h3>
+
+
+<p>
+
+5%
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="risk-box high-box">
+
+
+<h3>
+
+High Risk
+
+</h3>
+
+
+<p>
+
+2%
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================
+        FILE ACTIVITY SUMMARY
+========================== -->
+
+
+<section class="activity-summary">
+
+
+<h2>
+
+File Activity Summary
+
+</h2>
+
+
+
+<div class="activity-grid">
+
+
+
+<div class="activity-card">
+
+
+<i class="fa-solid fa-plus"></i>
+
+
+<h3>
+
+Created Files
+
+</h3>
+
+
+<p id="createdFiles">
+
+320
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="activity-card">
+
+
+<i class="fa-solid fa-pen"></i>
+
+
+<h3>
+
+Modified Files
+
+</h3>
+
+
+<p id="modifiedCount">
+
+450
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="activity-card">
+
+
+<i class="fa-solid fa-trash"></i>
+
+
+<h3>
+
+Deleted Files
+
+</h3>
+
+
+<p id="deletedCount">
+
+70
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+<!-- ==========================
+        REPORT GENERATION
+========================== -->
+
+
+<section class="generate-section">
+
+
+<h2>
+
+Generate Security Report
+
+</h2>
+
+
+
+<p>
+
+Create a detailed report containing scan results,
+file activities and malware detection information.
+
+</p>
+
+
+
+<div class="button-group">
+
+
+
+<button id="generateReport">
+
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+Generate Report
+
+
+</button>
+
+
+
+
+
+<button id="exportCSV">
+
+
+<i class="fa-solid fa-file-csv"></i>
+
+Export CSV
+
+
+</button>
+
+
+
+
+
+<button id="exportPDF">
+
+
+<i class="fa-solid fa-file-pdf"></i>
+
+Export PDF
+
+
+</button>
+
+
+
+
+
+<button id="printReport">
+
+
+<i class="fa-solid fa-print"></i>
+
+Print Report
+
+
+</button>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ==========================
+        MACHINE LEARNING SUMMARY
+========================== -->
+
+
+<section class="ml-report">
+
+
+<h2>
+
+Detection Engine Summary
+
+</h2>
+
+
+
+<div class="ml-grid">
+
+
+
+<div class="ml-card">
+
+
+<i class="fa-solid fa-brain"></i>
+
+
+<h3>
+
+Model Used
+
+</h3>
+
+
+<p>
+
+Random Forest Classifier
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="ml-card">
+
+
+<i class="fa-solid fa-database"></i>
+
+
+<h3>
+
+Features Analysed
+
+</h3>
+
+
+<p>
+
+File Entropy,
+Write Count,
+Rename Frequency,
+File Activity
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="ml-card">
+
+
+<i class="fa-solid fa-chart-line"></i>
+
+
+<h3>
+
+Detection Accuracy
+
+</h3>
+
+
+<p>
+
+98.4%
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="ml-card">
+
+
+<i class="fa-solid fa-clock"></i>
+
+
+<h3>
+
+Last Scan
+
+</h3>
+
+
+<p id="lastScanTime">
+
+Waiting...
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================
+        REPORT INFORMATION
+========================== -->
+
+
+<section class="report-info">
+
+
+<h2>
+
+Report Information
+
+</h2>
+
+
+
+<table>
+
+
+<tr>
+
+<td>
+
+Report Generated By
+
+</td>
+
+
+<td>
+
+Malware Detection System
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+
+Project
+
+</td>
+
+
+<td>
+
+Malware Detection Using File Activity
+
+</td>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+
+Developer
+
+</td>
+
+
+<td>
+
+Adetoro Akindele David
+
+</td>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+
+Department
+
+</td>
+
+
+<td>
+
+Cyber Security
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+
+Report Date
+
+</td>
+
+
+<td id="reportDate">
+
+Loading...
+
+</td>
+
+
+</tr>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ==========================
+        FOOTER
+========================== -->
+
+
+<footer class="footer">
+
+
+<p>
+
+Malware Detection Using File Activity
+
+</p>
+
+
+
+<p>
+
+Cyber Security Monitoring Platform
+
+</p>
+
+
+
+<p>
+
+Developed by 
+<strong>
+
+Adetoro Akindele David
+
+</strong>
+
+</p>
+
+
+
+</footer>
+
+
+
+
+</main>
+
+
+</div>
+
+
+<script src="auth.js"></script>
+
+
+<script src="report.js?v=3"></script>
+
+
+
+</body>
+
+</html>

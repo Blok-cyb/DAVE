@@ -1,0 +1,12 @@
+Flask
+Flask-Cors
+Werkzeug
+pandas
+numpy
+scikit-learn
+joblib
+watchdog
+psutil
+reportlab
+
+requests

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Detection Results | Malware Detection System</title>
+
+    <link rel="stylesheet" href="detection.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ==========================
+            SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <h2>🛡 Malware Detection</h2>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </li>
+
+            <li onclick="location.href='scan.html'">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Start Scan
+
+            </li>
+
+            <li onclick="location.href='activity.html'">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                File Activity
+
+            </li>
+
+            <li class="active">
+
+                <i class="fa-solid fa-shield-virus"></i>
+
+                Detection Results
+
+            </li>
+
+            <li onclick="location.href='report.html'">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                Reports
+
+            </li>
+
+            <li onclick="location.href='settings.html'">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </li>
+
+            <li id="logoutBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- ==========================
+            MAIN CONTENT
+    =========================== -->
+
+    <main class="main-content">
+
+        <!-- Top Bar -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>
+
+                    Detection Results
+
+                </h1>
+
+                <p>
+
+                    Machine Learning Malware Detection Dashboard
+
+                </p>
+
+            </div>
+
+            <div class="time-section">
+
+                <h3 id="clock">
+
+                    00:00:00
+
+                </h3>
+
+                <p id="todayDate">
+
+                    Loading...
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+            ALERT BANNER
+        =========================== -->
+
+        <div id="alertBanner" class="safe-banner">
+
+            🟢 System Secure - No Critical Threat Detected
+
+        </div>
+
+
+
+        <!-- ==========================
+            SUMMARY CARDS
+        =========================== -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-file-shield"></i>
+
+                <h2 id="totalScanned">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Files Scanned
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h2 id="safeFiles">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Safe Files
+
+                </p>
+
+            </div>
+
+            <div class="card danger">
+
+                <i class="fa-solid fa-bug"></i>
+
+                <h2 id="malwareFiles">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    Malware Found
+
+                </p>
+
+            </div>
+
+            <div class="card warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h2 id="highRisk">
+
+                    0
+
+                </h2>
+
+                <p>
+
+                    High Risk
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+            SEARCH & FILTER
+        =========================== -->
+
+        <div class="search-filter">
+
+            <input
+
+                type="text"
+
+                id="searchInput"
+
+                placeholder="🔍 Search by filename...">
+
+            <select id="riskFilter">
+
+                <option value="All">
+
+                    All Risk Levels
+
+                </option>
+
+                <option>
+
+                    Safe
+
+                </option>
+
+                <option>
+
+                    Low
+
+                </option>
+
+                <option>
+
+                    Medium
+
+                </option>
+
+                <option>
+
+                    High
+
+                </option>
+
+                <option>
+
+                    Critical
+
+                </option>
+
+            </select>
+
+            <select id="predictionFilter">
+
+                <option value="All">
+
+                    All Predictions
+
+                </option>
+
+                <option>
+
+                    Benign
+
+                </option>
+
+                <option>
+
+                    Malware
+
+                </option>
+
+            </select>
+
+        </div>
+                <!-- ==========================
+            DETECTION RESULTS TABLE
+        =========================== -->
+
+        <section class="results-table">
+
+            <h2>
+
+                Detection Results
+
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>File Name</th>
+
+                        <th>Extension</th>
+
+                        <th>Prediction</th>
+
+                        <th>Confidence</th>
+
+                        <th>Risk</th>
+
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="resultTable">
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            Waiting for scan results...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- ==========================
+            FILE DETAILS PANEL
+        =========================== -->
+
+        <section class="details-panel">
+
+            <h2>
+
+                Detection Details
+
+            </h2>
+
+            <table>
+
+                <tr>
+
+                    <td>Filename</td>
+
+                    <td id="detailFilename">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>File Path</td>
+
+                    <td id="detailPath">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Extension</td>
+
+                    <td id="detailExtension">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Prediction</td>
+
+                    <td id="detailPrediction">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Confidence</td>
+
+                    <td id="detailConfidence">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Risk Level</td>
+
+                    <td id="detailRisk">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Entropy</td>
+
+                    <td id="detailEntropy">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>SHA-256</td>
+
+                    <td id="detailHash">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Recommended Action</td>
+
+                    <td id="detailAction">
+
+                        -
+
+                    </td>
+
+                </tr>
+
+                <tr><td>Write Count</td><td id="detailWriteCount">-</td></tr>
+                <tr><td>Delete Count</td><td id="detailDeleteCount">-</td></tr>
+                <tr><td>Create Count</td><td id="detailCreateCount">-</td></tr>
+                <tr><td>Rename Count</td><td id="detailRenameCount">-</td></tr>
+                <tr><td>Extension Diversity</td><td id="detailExtDiversity">-</td></tr>
+                <tr><td>Sensitive Path Access</td><td id="detailSensitivePath">-</td></tr>
+                <tr><td>Read/Write Ratio</td><td id="detailReadWrite">-</td></tr>
+                <tr><td>Detection Score</td><td id="detailScore">-</td></tr>
+                <tr><td>Detection Reasons</td><td id="detailReasons">-</td></tr>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- ==========================
+            THREAT ANALYSIS
+        =========================== -->
+
+        <section class="analysis-panel">
+
+            <h2>
+
+                Threat Analysis
+
+            </h2>
+
+            <div class="analysis-grid">
+
+                <div class="analysis-card">
+
+                    <i class="fa-solid fa-file-code"></i>
+
+                    <h3>
+
+                        Executable File
+
+                    </h3>
+
+                    <p id="analysisExecutable">
+
+                        -
+
+                    </p>
+
+                </div>
+
+                <div class="analysis-card">
+
+                    <i class="fa-solid fa-microchip"></i>
+
+                    <h3>
+
+                        ML Prediction
+
+                    </h3>
+
+                    <p id="analysisML">
+
+                        -
+
+                    </p>
+
+                </div>
+
+                <div class="analysis-card">
+
+                    <i class="fa-solid fa-gauge-high"></i>
+
+                    <h3>
+
+                        Threat Score
+
+                    </h3>
+
+                    <p id="analysisScore">
+
+                        -
+
+                    </p>
+
+                </div>
+
+                <div class="analysis-card">
+
+                    <i class="fa-solid fa-shield-virus"></i>
+
+                    <h3>
+
+                        System Status
+
+                    </h3>
+
+                    <p id="analysisStatus">
+
+                        Protected
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            ACTION BUTTONS
+        =========================== -->
+
+        <div class="button-group">
+
+            <button id="quarantineBtn">
+
+                <i class="fa-solid fa-box-archive"></i>
+
+                Quarantine
+
+            </button>
+
+            <button id="deleteBtn">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete
+
+            </button>
+
+            <button id="ignoreBtn">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Ignore
+
+            </button>
+
+            <button id="rescanBtn">
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+                Re-Scan
+
+            </button>
+
+        </div>
+                <!-- ==========================
+            DETECTION HISTORY
+        =========================== -->
+
+        <section class="history-panel">
+
+            <h2>
+
+                Detection History
+
+            </h2>
+
+            <div class="timeline" id="timeline">
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>No scan history yet</h3>
+                        <p>Run a scan from the Scan page and the real result will appear here.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            MACHINE LEARNING INFO
+        =========================== -->
+
+        <section class="ml-info">
+
+            <h2>
+
+                Detection Engine Information
+
+            </h2>
+
+            <div class="ml-grid">
+
+                <div class="ml-card">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <h3>
+
+                        Model
+
+                    </h3>
+
+                    <p id="modelName">
+
+                        Behavioural Static Analyzer
+
+                    </p>
+
+                </div>
+
+                <div class="ml-card">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <h3>
+
+                        Features Used
+
+                    </h3>
+
+                    <p>
+
+                        Write Count, Delete Count, Create Count,
+                        Rename Count, Entropy, Extension Diversity,
+                        Sensitive Path Access, Read/Write Ratio
+
+                    </p>
+
+                </div>
+
+                <div class="ml-card">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h3>
+
+                        Accuracy
+
+                    </h3>
+
+                    <p id="modelAccuracy">
+
+                        Not yet validated
+
+                    </p>
+
+                </div>
+
+                <div class="ml-card">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <h3>
+
+                        Last Scan
+
+                    </h3>
+
+                    <p id="lastScan">
+
+                        Waiting...
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            EXPORT REPORTS
+        =========================== -->
+
+        <section class="export-section">
+
+            <h2>
+
+                Export Reports
+
+            </h2>
+
+            <div class="button-group">
+
+                <button id="exportCSV">
+
+                    <i class="fa-solid fa-file-csv"></i>
+
+                    Export CSV
+
+                </button>
+
+                <button id="exportPDF">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                    Export PDF
+
+                </button>
+
+                <button id="printReport">
+
+                    <i class="fa-solid fa-print"></i>
+
+                    Print Report
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+            FOOTER
+        =========================== -->
+
+        <footer class="footer">
+
+            <p>
+
+                Malware Detection Using File Activity
+
+            </p>
+
+            <p>
+
+                Developed by <strong>Adetoro Akindele David</strong>
+
+            </p>
+
+            <p>
+
+                Department of Cyber Security
+
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="auth.js"></script>
+
+<script src="detection.js"></script>
+
+</body>
+
+</html>

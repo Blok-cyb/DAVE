@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malware Detection Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+            SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <h2>🛡 Malware Detection</h2>
+
+        <ul>
+
+    <!-- DASHBOARD -->
+    <li class="active">
+        <a href="dashboard.html">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+        </a>
+    </li>
+
+
+    <!-- START SCAN -->
+    <li>
+        <a href="scan.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Start Scan
+        </a>
+    </li>
+
+
+    <li onclick="window.location.href='activity.html'">
+    <i class="fa-solid fa-folder-open"></i>
+    File Activity
+</li>
+
+<li onclick="window.location.href='detection.html'">
+    <i class="fa-solid fa-shield-virus"></i>
+    Detection Results
+</li>
+
+<li onclick="window.location.href='report.html'">
+    <i class="fa-solid fa-file-lines"></i>
+    Reports
+</li>
+
+<li onclick="window.location.href='settings.html'">
+    <i class="fa-solid fa-gear"></i>
+    Settings
+</li>
+
+
+    <!-- LOGOUT -->
+    <li id="logoutBtn">
+        <a href="login.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+    </li>
+
+</ul>
+
+    </aside>
+
+    <!-- =========================
+          MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+        <section class="agent-box" style="margin:20px 0;padding:18px;border-radius:14px;border:1px solid rgba(0,212,255,.25);background:rgba(0,20,40,.55);">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+                <div>
+                    <h3 style="margin:0 0 6px;">Local Monitoring Agent</h3>
+                    <p style="margin:0;opacity:.8;">Download the DAVE agent to monitor an authorized folder on this PC in real time.</p>
+                    <small id="agentStatus">Agent not paired.</small>
+                </div>
+                <button id="downloadAgentBtn" type="button" style="padding:12px 18px;border:0;border-radius:9px;cursor:pointer;">Download Monitoring Agent</button>
+            </div>
+        </section>
+
+        <header>
+
+            <div>
+
+                <h1>Real-Time Malware Detection Dashboard</h1>
+
+                <p>
+                    Welcome back,
+                    <strong id="username">Administrator</strong>
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3 id="clock"></h3>
+
+            </div>
+
+        </header>
+
+        <!-- =========================
+                STATISTICS
+        ========================== -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-folder"></i>
+
+                <h2 id="totalFiles">0</h2>
+
+                <p>Files Observed</p>
+            </div>
+
+            <div class="card success">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h2 id="safeFiles">0</h2>
+
+                <p>Safe Events</p>
+
+            </div>
+
+            <div class="card danger">
+
+                <i class="fa-solid fa-bug"></i>
+
+                <h2 id="malwareDetected">0</h2>
+
+                <p>Malware Detected by Scan</p>
+
+            </div>
+
+            <div class="card warning">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h2 id="threatAlerts">0</h2>
+
+                <p>Live Threat Alerts</p>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             SYSTEM HEALTH
+        ========================== -->
+
+        <div class="progress-box">
+
+            <h4>Overall System Protection</h4>
+
+            <div class="progress">
+
+                <div class="progress-bar" id="protectionBar"></div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             THREAT NOTIFICATION
+        ========================== -->
+
+        <div class="notification">
+
+            <h4>
+                <i class="fa-solid fa-bell"></i>
+                Latest Security Notification
+            </h4>
+
+            <p>
+                <span id="notificationText">Waiting for real-time events...</span>
+            </p>
+
+        </div>
+
+        <!-- =========================
+              THREAT LEVEL
+        ========================== -->
+
+        <div class="threat-level">
+
+            <h3>
+                <i class="fa-solid fa-shield-virus"></i>
+                Current Threat Level
+            </h3>
+
+            <div class="level low" id="threatLevel">LOW RISK</div>
+
+        </div>
+                <!-- =========================
+             RECENT FILE ACTIVITY
+        ========================== -->
+
+        <section class="activity">
+
+            <h2>
+                <i class="fa-solid fa-folder-open"></i>
+                Recent File Activity
+            </h2>
+
+            <table>
+
+                <tr>
+
+                    <th>File Name</th>
+
+                    <th>Status</th>
+
+                    <th>Time</th>
+
+                </tr>
+
+                <tbody id="activityBody">
+                    <tr><td colspan="3">Waiting for real activity...</td></tr>
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <!-- =========================
+                CHART SECTION
+        ========================== -->
+
+        <section class="chart-container">
+
+            <h2>
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                Live Activity Statistics
+
+            </h2>
+
+            <div class="live-chart" id="liveChart">
+                <div class="chart-bar"><span>Safe</span><div class="bar-track"><div class="bar-fill safe-fill" id="safeBar"></div></div><b id="safeChartCount">0</b></div>
+                <div class="chart-bar"><span>Warning</span><div class="bar-track"><div class="bar-fill warning-fill" id="warningBar"></div></div><b id="warningChartCount">0</b></div>
+                <div class="chart-bar"><span>Malware</span><div class="bar-track"><div class="bar-fill danger-fill" id="malwareBar"></div></div><b id="malwareChartCount">0</b></div>
+            </div>
+
+        </section>
+
+        <!-- =========================
+             SCAN LOADER
+        ========================== -->
+
+        <div class="loader"></div>
+
+        <!-- =========================
+              ALERT BOX
+        ========================== -->
+
+        <div class="alert success">
+
+            System Running Normally
+
+        </div>
+
+        <!-- =========================
+              FOOTER
+        ========================== -->
+
+        <div class="footer">
+
+            <p>
+
+                Malware Detection Using File Activity
+
+            </p>
+
+            <p>
+
+                Developed by
+                <strong>Adetoro Akindele David</strong>
+
+            </p>
+
+            <p>
+
+                Department of Cyber Security
+
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+<script src="auth.js"></script>
+
+<script src="dashboard.js?v=20260814-3"></script>
+
+</body>
+
+</html>
